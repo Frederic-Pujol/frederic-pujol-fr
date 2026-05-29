@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Premier modele de test : suivi minimal des visites du site.
+// On pourra l'enrichir plus tard (referer, geo, page complete, etc.)
+model Visit {
+  id        String   @id @default(cuid())
+  path      String
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([path])
+}
